@@ -27,7 +27,17 @@ class BookRequest extends FormRequest
             'title' => 'required|string|max:100',
             'author' => 'required|string|max:50',
             'genre' => 'required|string|max:50',
-            'publication_year' => 'required|integer|min:1800|max:' . date('Y'),
+            'publication_year' => [
+                'required',
+                'integer',
+                'min:1800',
+                'max:' . date('Y'),
+                function ($attribute, $value, $fail) {
+                    if ($value < 1800 || $value > date('Y')) {
+                        $fail($attribute . ' está fuera del rango permitido.');
+                    }
+                },
+            ],
         ];
     }
 }

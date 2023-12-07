@@ -1,57 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Actualizar Libro</h1>
+    <div class="container mt-5">
+        <h1 class="text-center">Actualizar Libro</h1>
 
-    <form action="{{ route('books.update', $book->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <label for="title">Título:</label>
-        <input type="text" name="title" value="{{ $book->title }}" required>
-        <br>
-        <label for="author">Autor:</label>
-        <input type="text" name="author" value="{{ $book->author }}" required>
-        <br>
-        <label for="genre">Género:</label>
-        <input type="text" name="genre" value="{{ $book->genre }}" required>
-        <br>
-        <label for="publication_year">Año de Publicación:</label>
-        <input type="number" name="publication_year" value="{{ $book->publication_year }}" required>
-        <br>
-        <button type="submit">Actualizar Libro</button>
-    </form>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>¡Ups! Algo salió mal. Por favor, corrige los siguientes errores:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <style>
-        h1{
-            margin-top: 2em; 
-            text-align: center;
-        }
-
-        form{
-            width: 30em;
-            margin: 3em;
-            display: flex;
-            flex-direction: column;
-            text-align: start;
-            font-size: 22px;
-            font-weight: 500;
-        }
-
-        label{
-            margin-bottom: 0.5em;
-        }
-
-        input{
-            width: 100%;
-            height: 2em;
-            font-size: 20px;
-        }
-
-        button{
-            height: 2.5em;
-            width: 100%;
-            border-radius: 20px;
-            font-size: 20px;
-        }
-    </style>
+        <form action="{{ route('books.update', $book->id) }}" method="POST" class="mx-auto" style="max-width: 400px;">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="title" class="form-label">Título:</label>
+                <input type="text" name="title" value="{{ $book->title }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Autor:</label>
+                <input type="text" name="author" value="{{ $book->author }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="genre" class="form-label">Género:</label>
+                <input type="text" name="genre" value="{{ $book->genre }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="publication_year" class="form-label">Año de Publicación:</label>
+                <input type="number" name="publication_year" value="{{ $book->publication_year }}" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Libro</button>
+        </form>
+    </div>
 @endsection

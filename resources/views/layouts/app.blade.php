@@ -22,7 +22,10 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('books.create') }}">Agregar Libro</a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('loans.index') }}">Reservar Libro</a>
+              </li>
+              <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
                 </a>
@@ -32,13 +35,16 @@
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
-              </li>
+              </li>-->
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </form>
             <a class="navbar-brand" href="{{ route('books.index') }}">
-                <button type="button" class="btn btn-outline-success"><box-icon type='solid' name='user'></box-icon>LOGIN</button>
+              <button type="button" class="btn">Ingresar</button>
+            </a>
+            <a class="navbar-brand" href="{{ route('books.index') }}">
+              <button type="button" class="btn">Registrarse</button>
             </a>
           </div>
         </div>

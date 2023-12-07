@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\LoanController;
 
 
 /*
@@ -17,3 +19,9 @@ use App\Http\Controllers\BookController;
 
 Route::get('/', [BookController::class, 'index']);
 Route::resource('books', BookController::class);
+
+Route::post('books/{book}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+Route::get('/loan', [LoanController::class, 'index']);
+Route::resource('loans', LoanController::class);
+

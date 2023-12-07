@@ -13,7 +13,7 @@ class LoansRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class LoansRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'book_id' => 'required|exists:books,id',
+            'user_name' => 'required|string|max:100',
+            'loan_date' => 'required|date',
+            'return_date' => 'required|date',
         ];
     }
 }

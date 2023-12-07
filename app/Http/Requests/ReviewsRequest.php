@@ -13,7 +13,7 @@ class ReviewsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ReviewsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_name' => 'nullable|string|max:100',
+            'comment' => 'nullable|string',
         ];
     }
 }
