@@ -10,43 +10,84 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ route('books.index') }}"><img src="https://daisy.org/wp-content/uploads/2020/05/Google-play-book-icon.png" alt="Logo"></a>
+          @guest
+          <a class="navbar-brand{{ Request::is('/') ? ' active' : '' }}" href="{{ url('/') }}"><img src="https://daisy.org/wp-content/uploads/2020/05/Google-play-book-icon.png" alt="Logo"></a>
+          @else
+            @auth
+                @if (Auth::user()->hasRole('admin'))
+                <a class="navbar-brand{{ Request::is('admin/dashboard') ? ' active' : '' }}" href="{{ route('admin.dashboard') }}"><img src="https://daisy.org/wp-content/uploads/2020/05/Google-play-book-icon.png" alt="Logo"></a>
+                @elseif (Auth::user()->hasRole('cliente'))
+                <a class="navbar-brand{{ Request::is('client/dashboard') ? ' active' : '' }}" href="{{ route('client.dashboard') }}"><img src="https://daisy.org/wp-content/uploads/2020/05/Google-play-book-icon.png" alt="Logo"></a>
+                @endif
+            @endauth
+           @endguest
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('books.index') }}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('books.create') }}">Agregar Libro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('loans.index') }}">Reservar Libro</a>
-              </li>
-              <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>-->
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link{{ Request::is('/') ? ' active' : '' }}" href="{{ url('/') }}">Home</a>
+                </li>
+                @else
+                    @auth
+                        @if (Auth::user()->hasRole('admin'))
+                            <li class="nav-item">
+                                <a class="nav-link{{ Request::is('admin/dashboard') ? ' active' : '' }}" href="{{ route('admin.dashboard') }}">Panel de Admin</a>
+                            </li>
+                        @elseif (Auth::user()->hasRole('cliente'))
+                            <li class="nav-item">
+                                <a class="nav-link{{ Request::is('client/dashboard') ? ' active' : '' }}" href="{{ route('client.dashboard') }}">Panel de Cliente</a>
+                            </li>
+                        @endif
+                    @endauth
+                @endguest
+                @auth
+                    @if(Auth::user()->hasRole('admin'))
+                        <li class="nav-item">
+                            <a class="nav-link{{ Request::is('admin/create') ? ' active' : '' }}" href="{{ route('admin.createBook') }}">Agregar Libro</a>
+                        </li>
+                    @endif
+                @endauth
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link{{ Request::is('loans') ? ' active' : '' }}" href="{{ url('/loans') }}">Reservar Libro</a>
+                </li>
+                @else
+                    @auth
+                        @if(Auth::user()->hasRole('admin'))
+                        <li class="nav-item">
+                            <a class="nav-link{{ Request::is('loans') ? ' active' : '' }}" href="{{ route('loans.index') }}">Reservar Libro</a>
+                        </li>
+                        @elseif (Auth::user()->hasRole('cliente'))
+                        <li class="nav-item">
+                            <a class="nav-link{{ Request::is('loans') ? ' active' : '' }}" href="{{ url('/loans') }}">Libros Reservados</a>
+                        </li>
+                        @endif
+                    @endauth
+                @endguest
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            </form>
-            <a class="navbar-brand" href="{{ route('login') }}">
-              <button type="button" class="btn">Ingresar</button>
-            </a>
-            <a class="navbar-brand" href="{{ route('register') }}">
-              <button type="button" class="btn">Registrarse</button>
-            </a>
-          </div>
+        
+            @guest
+                <!-- Mostrar elementos para usuarios no autenticados (login y registro) -->
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a class="navbar-brand" href="{{ route('login') }}">
+                    <button type="button" class="btn">Ingresar</button>
+                </a>
+                <a class="navbar-brand" href="{{ route('register') }}">
+                    <button type="button" class="btn">Registrarse</button>
+                </a>
+            @else
+                <!-- Mostrar elemento para usuarios autenticados (logout) -->
+                <form action="{{ route('logout') }}" method="post" class="d-flex">
+                    @csrf
+                    <button type="submit" class="btn">Cerrar Sesión</button>
+                </form>
+            @endguest
+        </div>
         </div>
       </nav>
     <div>

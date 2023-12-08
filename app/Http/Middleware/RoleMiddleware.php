@@ -22,7 +22,12 @@ class RoleMiddleware
             return $next($request);
         }
 
-        // Redirigir o manejar el error de permisos
-        return redirect('/'); // Cambia esto según tus necesidades
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (Auth::check() && Auth::user()->role === 'client') {
+            return redirect()->route('client.dashboard');
+        } else {
+            return redirect('/'); // Cambia esto según tus necesidades
+        }
     }
 }

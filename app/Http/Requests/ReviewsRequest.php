@@ -24,7 +24,7 @@ class ReviewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_name' => 'nullable|string|max:100',
+            'book_id' => 'required|exists:books,id',
             'comment' => 'nullable|string',
         ];
     }

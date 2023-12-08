@@ -20,7 +20,7 @@
                                     <p class="card-text"><strong>Autor:</strong> {{ $book->author }}</p>
                                     <p class="card-text"><strong>Género:</strong> {{ $book->genre }}</p>
                                     <p class="card-text"><strong>Año de Publicación:</strong> {{ $book->publication_year }}</p>
-                                    <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary">Ver Detalles</a>
+                                    <a href="{{ route('client.showBook', $book->id) }}" class="btn btn-primary">Ver Detalles</a>
                                 </div>
                             </div>
                         </div>

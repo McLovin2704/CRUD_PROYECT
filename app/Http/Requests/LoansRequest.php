@@ -25,7 +25,6 @@ class LoansRequest extends FormRequest
     {
         return [
             'book_id' => 'required|exists:books,id',
-            'user_name' => 'required|string|max:100',
             'loan_date' => 'required|date',
             'return_date' => 'nullable|date',
         ];

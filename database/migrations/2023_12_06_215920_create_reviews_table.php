@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('book_id')->references('id')->on('books')->onDelete('cascade');
-            $table->string('user_name')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

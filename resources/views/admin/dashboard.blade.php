@@ -20,7 +20,12 @@
                                     <p class="card-text"><strong>Autor:</strong> {{ $book->author }}</p>
                                     <p class="card-text"><strong>Género:</strong> {{ $book->genre }}</p>
                                     <p class="card-text"><strong>Año de Publicación:</strong> {{ $book->publication_year }}</p>
-                                    <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary">Ver Detalles</a>
+                                    <a href="{{ route('admin.showBook', $book->id) }}" class="btn btn-primary">Ver Detalles</a>
+                                    <form action="{{ route('admin.destroyBook', $book->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
