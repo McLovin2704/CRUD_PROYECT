@@ -40,10 +40,10 @@
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </form>
-            <a class="navbar-brand" href="{{ route('books.index') }}">
+            <a class="navbar-brand" href="{{ route('login') }}">
               <button type="button" class="btn">Ingresar</button>
             </a>
-            <a class="navbar-brand" href="{{ route('books.index') }}">
+            <a class="navbar-brand" href="{{ route('register') }}">
               <button type="button" class="btn">Registrarse</button>
             </a>
           </div>
